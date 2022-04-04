@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap" rel="stylesheet">
+	
+	<title>Memory Game - Start</title>
+	
+	<!--CSS Start-->
+		<style>
+		
+			p, h1, h2, h3, h4, h5, h6{
+				
+				font-family: 'Nunito Sans', sans-serif;
+				
+			}
+			
+			.toggleNone{
+				
+				display: none;
+				
+			}
+			
+			.toggleInlineBlock{
+				
+				display: inline-block !important;
+				
+			}
+			
+			.toggleBlock{
+				
+				display: block !important;
+				
+			}
+			
+		</style>
+	<!--CSS End-->
+	
+</head>
+
+<body>
+	
+	<!--Elements Start-->
+		
+		<div class="container text-center my-5">
+			
+			<h1 class="text-dark mt-5 mb-0">A Simple Memory Game.</h1>
+			<h3 id="instructions" class="text-secondary mt-1 mb-0">Memorize this set of symbols.</h3>
+			<br>
+			<h3 id="setCountDisplay1" class="text-secondary mt-1 mb-0">This is set number:</h3>
+			<h1 id="setCountDisplay2" class="text-info">Zero. Click Next Set and start memorizing.</h1>
+			
+		</div>
+		
+		<!--Pre-game Elements Start-->
+		
+		<div id="setDisplayParent" class="container mt-3 mb-0">
+			
+			<div class="row">
+				
+				<div class="col-4">
+				<div class="card">
+				
+					<div class="card-body text-center mt-3">
+						<h1 id="setDisplay1" class="text-info">?</h1>
+					</div>
+				
+				</div>
+				</div>
+				
+				<div class="col-4">
+				<div class="card">
+				
+					<div class="card-body text-center mt-3">
+						<h1 id="setDisplay2" class="text-info">?</h1>
+					</div>
+				
+				</div>
+				</div>
+				
+				<div class="col-4">
+				<div class="card">
+				
+					<div class="card-body text-center mt-3">
+						<h1 id="setDisplay3" class="text-info">?</h1>
+					</div>
+				
+				</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<div class="container text-center mt-5 mb-0">
+			
+			<a id="btnNextSet" class="btn btn-warning px-5 mx-5" onclick="nextSet()"><h2 class="text-white mt-2">Next Set</h2></a>
+			<a id="btnStart" class="btn btn-info px-5 mx-5" onclick="startGame1()" style="display: none;"><h2 class="text-white mt-2 mx-4">Start</h2></a>
+			
+		</div>
+
+		<div class="container text-center mt-5 mb-0">
+
+			<a id="btnRestart" class="btn btn-warning px-5 mx-3" href="#start" style="display: none;"><h2 class="text-white mt-2 mx-4">Restart</h2></a>
+		
+		</div>
+		
+		<!--Pre-game Elements End-->
+		
+		<!--Game Elements Start-->
+			
+			<div id="submitStrParent" class="container" style="display: none;">
+				
+				<div class="card mx-3 text-center">
+					
+					<div class="row">
+						
+						<div class="col-2">
+							
+							<!--Empty-->
+							
+						</div>
+						
+						<div class="col-8">
+							
+							<textarea id="inputArea" class="form-control text-info mx-auto mt-5 mb-0" rows="1"></textarea>
+							
+						<div>
+						
+						<div class="col-2">
+							
+							<!--Empty-->
+							
+						</div>
+					</div>	
+					</div>
+					
+					<div class="container my-3">
+					
+						<div class="container my-2 text-center">
+							
+							<a class="btn btn-outline-warning px-3 pt-2 pb-0" onclick="keyInput('7')"><h3 class="">7</h3></a>
+							<a class="btn btn-outline-warning px-3 pt-2 pb-0" onclick="keyInput('8')"><h3 class="">8</h3></a>
+							<a class="btn btn-outline-warning px-3 pt-2 pb-0" onclick="keyInput('9')"><h3 class="">9</h3></a>
+							
+						</div>
+						
+						<div class="container my-2 text-center">
+							
+							<a class="btn btn-outline-warning px-3 pt-2 pb-0" onclick="keyInput('4')"><h3 class="">4</h3></a>
+							<a class="btn btn-outline-warning px-3 pt-2 pb-0" onclick="keyInput('5')"><h3 class="">5</h3></a>
+							<a class="btn btn-outline-warning px-3 pt-2 pb-0" onclick="keyInput('6')"><h3 class="">6</h3></a>
+							
+						</div>
+						
+						<div class="container my-2 text-center">
+							
+							<a class="btn btn-outline-warning px-3 pt-2 pb-0" onclick="keyInput('1')"><h3 class="">1</h3></a>
+							<a class="btn btn-outline-warning px-3 pt-2 pb-0" onclick="keyInput('2')"><h3 class="">2</h3></a>
+							<a class="btn btn-outline-warning px-3 pt-2 pb-0" onclick="keyInput('3')"><h3 class="">3</h3></a>
+							
+						</div>
+						
+						<div class="container my-2 text-center">
+							
+							<a class="btn btn-outline-warning px-3 pt-2 pb-0" onclick="keyInput('0')"><h3 class="">0</h3></a>
+							<a class="btn btn-info px-2 pt-2 pb-0" onclick="submitSymbols(valueSubmitted)"><h3 class="text-white">Submit</h3></a>
+							
+						</div>
+						
+					</div>
+					
+					</div>
+				</div>
+				
+			</div>
+			
+		<!--Game Elements End-->
+		
+	<!--Elements End-->
+	
+	<!--     -->
+	
+	<!--Script Start-->
+	<script>
+		
+		//Variables Start
+			
+			gameScore = 0;
+			setNumber = 0;
+			scoreMultiplier = 1;
+			startBtnState = false;
+			
+			valueSubmitted = "";
+			compareString = "";
+			
+			displayOne = Math.floor(Math.random() * 10);
+			displayTwo = Math.floor(Math.random() * 10);
+			displayThree = Math.floor(Math.random() * 10);
+			
+		//Variables End
+		
+		//Functions Start
+			
+			function gameEnd(){
+				
+				document.getElementById("instructions").innerHTML = "Game ended.";
+				document.getElementById("setCountDisplay1").innerHTML = "Better luck next time! Your score was:";
+				document.getElementById("setCountDisplay2").innerHTML = gameScore + ". Click the restart button to start over.";
+				
+				toggleSubmit();
+				toggleRestartBtn();
+				
+				console.log("Game ended");
+				
+			}
+			
+			function toggleDisplay(){
+				
+				element = document.getElementById("setDisplayParent");
+				element.classList.toggle("toggleNone");
+				
+				element = document.getElementById("btnNextSet");
+				element.classList.toggle("toggleNone");
+				
+				console.log("Toggled Display");
+				
+			}
+			
+			function toggleStartBtn(){
+				
+				element = document.getElementById("btnStart");
+				element.classList.toggle("toggleInlineBlock");
+				
+				console.log("Toggled Start Button");
+				
+			}
+			
+			function toggleSubmit(){
+				
+				element = document.getElementById("submitStrParent");
+				element.classList.toggle("toggleBlock");
+				
+				console.log("Toggled Submit Screen");
+				
+			}
+
+			function toggleRestartBtn(){
+
+				element = document.getElementById("btnRestart");
+				element.classList.toggle("toggleBlock");
+				
+				console.log("Toggled Restarted Screen");
+
+			}
+			
+			function newSet(){
+				
+				displayOne = Math.floor(Math.random() * 10).toString();
+				displayTwo = Math.floor(Math.random() * 10).toString();
+				displayThree = Math.floor(Math.random() * 10).toString();
+				
+				document.getElementById("setDisplay1").innerHTML = displayOne;
+				document.getElementById("setDisplay2").innerHTML = displayTwo;
+				document.getElementById("setDisplay3").innerHTML = displayThree;
+				
+				compareString += displayOne + displayTwo + displayThree;
+				
+				console.log("New set");
+				
+			}
+			
+			function nextSet(){
+				
+				setNumber++;
+				scoreMultiplier *= 1.5;
+				console.log("Set number + 1");
+				console.log("Score multiplier + 50%");
+				
+				newSet();
+				
+				document.getElementById("setCountDisplay1").innerHTML = "This is set number:";
+				document.getElementById("setCountDisplay2").innerHTML = setNumber;
+				
+				if( startBtnState == false ){
+					
+					startBtnState = true;
+					toggleStartBtn();
+					
+					console.log("Pre-game End");
+					
+				}
+				
+			}
+			
+			function startGame1(){
+				
+				if( setNumber == 0 ){
+					
+					document.getElementById("setCountDisplay1").innerHTML = "This is set number:";
+					document.getElementById("setCountDisplay2").innerHTML = "Zero. Click Next Set";
+					
+					console.log("Start Game 1/2");
+					
+				}
+				else if( setNumber == 1 ){
+					
+					toggleDisplay();
+					toggleStartBtn();
+					
+					document.getElementById("setCountDisplay1").innerHTML = "You needed to memorize:";
+					document.getElementById("setCountDisplay2").innerHTML += " Set";
+					
+					console.log("Start Game 1/2");
+					startGame2();
+					
+				}
+				else{
+					
+					toggleDisplay();
+					toggleStartBtn();
+					toggleRestartBtn();
+					
+					document.getElementById("setCountDisplay1").innerHTML = "You needed to memorize:";
+					document.getElementById("setCountDisplay2").innerHTML += " Sets";
+					
+					console.log("Start Game 1/2");
+					startGame2();
+					
+				}
+				
+			}
+			
+			function startGame2(){
+				
+				toggleSubmit();
+				document.getElementById("instructions").innerHTML = "Input all the symbols memorized in order.";
+				
+				console.log("Start Game 2/2");
+				
+			}
+			
+			function keyInput(keyInput){
+				
+				document.getElementById('inputArea').value += keyInput;
+				
+			}
+			
+			function submitSymbols(valueSubmitted){
+				
+				valueSubmitted = document.getElementById("inputArea").value;
+				
+				if( valueSubmitted == compareString ){
+					
+					console.log("Submitted Success");
+					gameScore += 1000 * setNumber  * scoreMultiplier;
+					
+					setNumber = 0;
+					scoreMultiplier = 1;
+					compareString = "";
+					document.getElementById("inputArea").value = "";
+					
+					document.getElementById("setCountDisplay1").innerHTML = "Score:";
+					document.getElementById("setCountDisplay2").innerHTML = gameScore;
+					
+					toggleSubmit();
+					
+					toggleDisplay();
+					toggleStartBtn();
+
+					toggleRestartBtn();
+
+				}
+				else{
+					
+					console.log("Submitted Failure");
+					gameEnd();
+					
+				}
+				
+			}
+			
+		//Functions End
+		
+	</script>
+	<!--Script End-->
+	
+</body>
+</html>
